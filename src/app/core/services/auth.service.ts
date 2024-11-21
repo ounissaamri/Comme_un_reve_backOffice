@@ -12,8 +12,8 @@ export class AuthService {
 
   constructor(private http: HttpClient, private router: Router) {}
 
-  login(credentials: { email: string; password: string }): Observable<{ token: string }> {
-    return this.http.post<{ token: string }>(`${this.baseUrl}/api/login`, credentials)
+  login(credentials: { email: string; password: string }): Observable<{ accessToken: string, refreshToken:string }> {
+    return this.http.post<{ accessToken: string, refreshToken:string }>(`${this.baseUrl}/api/user/login`, credentials)
   }
 
   logout(): void {

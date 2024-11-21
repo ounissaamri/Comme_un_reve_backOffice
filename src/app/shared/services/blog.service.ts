@@ -8,12 +8,13 @@ import { Blog } from '../models/blog';
   providedIn: 'root',
 })
 export class BlogService {
-  private baseUrl = environment.apiUrl + '/blogs';
+  private baseUrl = environment.apiUrl;
+  
 
   constructor(private http: HttpClient) {}
 
   getAllBlogs(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(this.baseUrl);
+    return this.http.get<Blog[]>(this.baseUrl + '/api/blog/blogs');
   }
 
   getBlogById(id: number): Observable<Blog> {

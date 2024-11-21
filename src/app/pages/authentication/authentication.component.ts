@@ -37,7 +37,11 @@ export class AuthenticationComponent {
     if (this.loginForm.valid) {
       this.authService.login(this.loginForm.value).subscribe({
         next: (response) => {
-          localStorage.setItem('token', response.token);
+          console.log(response)
+          let accesToken:string = response.accessToken;
+          let refreshToken:string = response.refreshToken;
+          localStorage.setItem('token', accesToken)
+          localStorage.setItem('refreshToken', refreshToken)
           this.router.navigate(['/']);
         },
         error: (err) => {
