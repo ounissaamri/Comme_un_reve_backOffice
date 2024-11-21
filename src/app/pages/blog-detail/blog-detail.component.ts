@@ -25,7 +25,7 @@ import { NgFor, NgIf } from '@angular/common';
 })
 export class BlogDetailComponent implements OnInit {
   blogForm: FormGroup;
-  blogId: number | null = null;
+  blogId: string | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -34,16 +34,19 @@ export class BlogDetailComponent implements OnInit {
     private router: Router
   ) {
     this.blogForm = this.fb.group({
-      title: ['', Validators.required],
-      description: ['', Validators.required],
-      imageUrl: ['', Validators.required],
+      content: ['', Validators.required],
+      image: ['', Validators.required],
+      titre: ['', Validators.required],
     });
   }
 
   ngOnInit(): void {
-    this.blogId = +this.route.snapshot.paramMap.get('id')!;
+    //recuperation de l'id dans la route
+    this.blogId = this.route.snapshot.paramMap.get('id');
+    console.log(this.route.snapshot.paramMap.get('id'))
     if (this.blogId) {
       this.blogService.getBlogById(this.blogId).subscribe((data) => {
+        console.log(data)
         this.blogForm.patchValue(data);
       });
     }
@@ -64,4 +67,17 @@ export class BlogDetailComponent implements OnInit {
       }
     }
   }
+
+  onDelete() {
+    if (this.blogForm.valid) {
+    if (this.blogId) {
+      this.blogService
+        .deleteById(this.blogId)
+        .subscribe(() => {
+          alert('Element bien supprimé')
+          this.router.navigate(['/']);
+        });
+    } 
+  }
+}
 }

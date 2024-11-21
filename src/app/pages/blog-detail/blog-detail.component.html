@@ -1,23 +1,25 @@
 <div class="blog-details-container">
     <mat-card>
-      <form [formGroup]="blogForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="blogForm">
         <mat-form-field appearance="fill">
           <mat-label>Titre</mat-label>
-          <input matInput formControlName="title" />
+          <input matInput formControlName="titre" />
         </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Description</mat-label>
-          <textarea matInput formControlName="description"></textarea>
+          <textarea matInput formControlName="content"></textarea>
         </mat-form-field>
   
         <mat-form-field appearance="fill">
           <mat-label>Image URL</mat-label>
-          <input matInput formControlName="imageUrl" />
+          <input matInput formControlName="image" />
         </mat-form-field>
   
-        <button mat-button class="cur_btn_form" type="submit"> Envoyer </button>
+        <button mat-button class="cur_btn_form" (click)="onSubmit()" > Envoyer </button>
+        <button *ngIf="blogId" mat-button class="cur_btn_form" (click)="onDelete()"> Supprimer </button>
       </form>
+      
     </mat-card>
   </div>
   

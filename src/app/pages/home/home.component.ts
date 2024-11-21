@@ -14,18 +14,24 @@ import { NgFor, NgIf, SlicePipe } from '@angular/common';
 })
 export class HomeComponent {
 
-  blogs: Blog[] = [];
+  blogs: Blog[] = []
+
 
   constructor(private blogService: BlogService, private router: Router, private authService:AuthService) {}
 
   ngOnInit(): void {
     this.blogService.getAllBlogs().subscribe((data) => {
       this.blogs = data;
+
     });
   }
 
-  viewDetails(id: number): void {
-    this.router.navigate(['/blog-details', id]);
+  viewDetails(id?: string): void {
+    if(id) {
+      this.router.navigate(['/blog-details', id]);
+    } else {
+      this.router.navigate(['/blog-details', '']);
+    }
   }
   
   logout(): void {
