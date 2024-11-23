@@ -10,13 +10,12 @@
           <mat-label>Description</mat-label>
           <textarea matInput formControlName="content"></textarea>
         </mat-form-field>
+
+        <br>
+        <img [src]="api_url + originalName" width="200" height="200"  class="image" alt="Veuillez sélectionner une image"/>  
+        <input required type="file" accept="image/jpeg, image/png" (change)="onFileChange($event)">
   
-        <mat-form-field appearance="fill">
-          <mat-label>Image URL</mat-label>
-          <input matInput formControlName="image" />
-        </mat-form-field>
-  
-        <button mat-button class="cur_btn_form" (click)="onSubmit()" > Envoyer </button>
+        <button mat-button class="cur_btn_form" [disabled]="blogForm.invalid || !this.originalName" (click)="onSubmit()" > Envoyer </button>
         <button *ngIf="blogId" mat-button class="cur_btn_form" (click)="onDelete()"> Supprimer </button>
       </form>
       

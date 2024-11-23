@@ -1,3 +1,4 @@
+import { environment } from './../../../environments/environment';
 import { Component } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
 import { Router } from '@angular/router';
@@ -13,7 +14,7 @@ import { NgFor, NgIf, SlicePipe } from '@angular/common';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent {
-
+ api_url = environment.apiUrl + '/api/file/download/';
   blogs: Blog[] = []
 
 

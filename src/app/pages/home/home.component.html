@@ -1,8 +1,14 @@
+
+<section>
+  <nav>
+    <button mat-button class="cur_btn_form" (click)="logout()"> Déconnexion</button>
+  </nav>
+</section>
 <h1>Articles</h1>
 <div class="blog-list-container">
     <div class="blog-list">
       <div class="blog-card" *ngFor="let blog of blogs" (click)="viewDetails(blog._id)">
-        <img [src]="blog.image" alt="Image du blog" class="blog-image">
+        <img [src]="api_url + blog.image" alt="Image du blog" class="blog-image">
         <h2 class="blog-title">{{ blog.titre }}</h2>
         <p class="blog-description">{{ blog.content | slice: 0:100 }}...</p>
       </div>

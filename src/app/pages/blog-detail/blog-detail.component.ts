@@ -6,6 +6,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { NgFor, NgIf } from '@angular/common';
+import { FileService } from '../../core/services/file.service';
+import { environment } from '../../../environments/environment';
 
 
 @Component({
@@ -26,16 +28,20 @@ import { NgFor, NgIf } from '@angular/common';
 export class BlogDetailComponent implements OnInit {
   blogForm: FormGroup;
   blogId: string | null = null;
+  imageName: any;
+  originalName: any;
+  api_url = environment.apiUrl + '/api/file/download/';
+
 
   constructor(
     private fb: FormBuilder,
     private blogService: BlogService,
     private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private fileService: FileService
   ) {
     this.blogForm = this.fb.group({
       content: ['', Validators.required],
-      image: ['', Validators.required],
       titre: ['', Validators.required],
     });
   }
@@ -47,6 +53,9 @@ export class BlogDetailComponent implements OnInit {
     if (this.blogId) {
       this.blogService.getBlogById(this.blogId).subscribe((data) => {
         console.log(data)
+        if(data.image) {
+          this.originalName = data.image
+        }
         this.blogForm.patchValue(data);
       });
     }
@@ -55,17 +64,42 @@ export class BlogDetailComponent implements OnInit {
   onSubmit(): void {
     if (this.blogForm.valid) {
       if (this.blogId) {
+        console.log( {...this.blogForm.getRawValue()}, this.originalName)
+
         this.blogService
-          .updateBlog(this.blogId, this.blogForm.value)
+          .updateBlog(this.blogId, {...this.blogForm.getRawValue(), image:this.originalName})
           .subscribe(() => {
             this.router.navigate(['/']);
           });
       } else {
-        this.blogService.createBlog(this.blogForm.value).subscribe(() => {
+        console.log(this.originalName)
+        this.blogService.createBlog({...this.blogForm.getRawValue(), image:this.originalName}).subscribe(() => {
           this.router.navigate(['/']);
         });
       }
     }
+  }
+
+  onFileChange(event: any) {
+    const file = event.target.files[0];
+    if (file) {
+      const validTypes = ['image/jpeg', 'image/png'];
+      if (!validTypes.includes(file.type)) {
+        alert('Type de fichier non valide. Veuillez sélectionner une image JPEG ou PNG.');
+        return;
+      }
+
+  
+    this.fileService.upload(file)
+      .subscribe((res:any) => {
+
+       this.originalName= res.file
+       console.log(this.originalName)
+      },
+      (error) => {
+        console.log(error)
+      });
+  }
   }
 
   onDelete() {
