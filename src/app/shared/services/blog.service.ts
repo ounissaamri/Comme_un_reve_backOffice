@@ -14,22 +14,22 @@ export class BlogService {
   constructor(private http: HttpClient) {}
 
   getAllBlogs(): Observable<Blog[]> {
-    return this.http.get<Blog[]>(this.baseUrl + '/api/blog/blogs');
+    return this.http.get<Blog[]>(this.baseUrl + 'api/blog/blogs');
   }
 
   getBlogById(id: string): Observable<Blog> {
-    return this.http.get<Blog>(this.baseUrl+'/api/blog/blog/' + id);
+    return this.http.get<Blog>(this.baseUrl+'api/blog/blog/' + id);
   }
 
   createBlog(blog: Blog): Observable<Blog> {
-    return this.http.post<Blog>(this.baseUrl +'/api/blog/blog', blog);
+    return this.http.post<Blog>(this.baseUrl +'api/blog/blog', blog);
   }
 
   updateBlog(id: string, blog: Blog): Observable<Blog> {
-    return this.http.put<Blog>(`${this.baseUrl}/api/blog/blog/${id}`, blog);
+    return this.http.put<Blog>(`${this.baseUrl}api/blog/blog/${id}`, blog);
   }
 
   deleteById(id: string): Observable<string> {
-    return this.http.delete<string>(`${this.baseUrl}/api/blog/blog/${id}`);
+    return this.http.delete<string>(`${this.baseUrl}api/blog/blog/${id}`);
   }
 }

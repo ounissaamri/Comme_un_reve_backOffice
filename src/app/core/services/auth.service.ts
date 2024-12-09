@@ -13,7 +13,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   login(credentials: { email: string; password: string }): Observable<{ token: string, refreshToken:string }> {
-    return this.http.post<{ token: string, refreshToken:string }>(`${this.baseUrl}/api/auth/signin`, credentials)
+    return this.http.post<{ token: string, refreshToken:string }>(`${this.baseUrl}api/auth/signin`, credentials)
   }
 
   logout(): void {
