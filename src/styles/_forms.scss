@@ -1,0 +1,15 @@
+@import 'variables';
+
+.cur_btn_form {
+    background-color: #2B5896;
+    color: #ffffff;
+    font-family: 'inter bold';
+    font-size: 18px;
+    width: 80%;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px 0px;
+    &:disabled {
+        background-color: $btn_disabled_blue !important;
+    }
+}

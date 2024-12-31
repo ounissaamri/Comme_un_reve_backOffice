@@ -1,0 +1,15 @@
+
+
+<h1>Articles Des Blogs</h1>
+<div class="blog-list-container">
+  <div class="blog-list">
+    <div class="blog-card" *ngFor="let blog of blogs" (click)="viewDetails(blog._id)">
+      <img [src]="api_url + blog.image" alt="Image du blog" class="blog-image">
+      <h2 class="blog-title">{{ blog.titre }}</h2>
+      <p class="blog-description">{{ blog.content | slice: 0:100 }}...</p>
+    </div>
+  </div>
+  <br>
+  <button mat-button class="cur_btn_form" (click)="viewDetails()" >Ajouter un blog</button>
+  <button mat-button class="cur_btn_form" (click)="logout()"style="  "> Déconnexion</button>
+</div>

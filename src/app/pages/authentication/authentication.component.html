@@ -1,0 +1,41 @@
+
+
+<div class="login-container">
+    <img src="./../../../assets/img/logo.png" alt="Logo de l'association"/>
+    <mat-card class="login-card">
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <h1>Connexion au Back Office</h1>
+  
+        <!-- Champ Email -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label for="email">Email</mat-label>
+          <input matInput id="email" formControlName="email" type="email" placeholder="Entrez votre email" />
+          <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+            L'email est requis
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('email')?.hasError('email')">
+            Entrez un email valide
+          </mat-error>
+        </mat-form-field>
+  
+        <!-- Champ Mot de Passe -->
+        <mat-form-field appearance="fill" class="full-width">
+          <mat-label>Mot de Passe</mat-label>
+          <input matInput formControlName="password" type="password" placeholder="Entrez votre mot de passe" />
+          <mat-error *ngIf="loginForm.get('password')?.hasError('required')">
+            Le mot de passe est requis
+          </mat-error>
+          <mat-error *ngIf="loginForm.get('password')?.hasError('minlength')">
+            Le mot de passe doit comporter au moins 6 caractères
+          </mat-error>
+        </mat-form-field>
+  
+
+        <div class="buttons">
+            <button mat-button class="cur_btn_form"  [disabled]="loginForm.invalid"> Connexion </button>
+          </div>
+          
+      </form>
+    </mat-card>
+  </div>
+ 

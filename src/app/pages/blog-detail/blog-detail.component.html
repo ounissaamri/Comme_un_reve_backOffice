@@ -1,0 +1,24 @@
+<div class="blog-details-container">
+    <mat-card>
+      <form [formGroup]="blogForm">
+        <mat-form-field appearance="outline">
+          <mat-label>Titre</mat-label>
+          <input matInput formControlName="titre" />
+        </mat-form-field>
+  
+        <mat-form-field appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput formControlName="content"></textarea>
+        </mat-form-field>
+
+        <br>
+        <img [src]="api_url + originalName" width="200" height="200"  class="image" alt="Veuillez sélectionner une image"/>  
+        <input required type="file" accept="image/jpeg, image/png" (change)="onFileChange($event)">
+  
+        <button mat-button class="cur_btn_form" [disabled]="blogForm.invalid || !this.originalName" (click)="onSubmit()" > Envoyer </button>
+        <button *ngIf="blogId" mat-button class="cur_btn_form" (click)="onDelete()"> Supprimer </button>
+      </form>
+      
+    </mat-card>
+  </div>
+  
